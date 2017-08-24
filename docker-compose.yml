@@ -1,0 +1,23 @@
+version: '2'
+services:
+  db:
+    image: 'postgres-imagen'
+    volumes:
+      - /data/db:/var/lib/postgressql/data
+    build: ./Postgres/.
+    container_name: 'psqlalpine-prn335'
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DATABASE: posts
+      POSTGRES_USER: mortal2017
+      POSTGRES_PASSWORD: prn335
+  payara:
+    depends_on:
+      - db
+    image: 'payara-imagen'
+    build: ./Payara/.
+    container_name: 'payara-prn335'
+    ports:
+      - "4848:4848"
+      - "8080:8080"
